@@ -8,19 +8,19 @@ avl_t *avl_insert(avl_t **tree, int value);
 
 /**
  * height - Measures the height of a binary tree.
- * @tree: A pointer to the root node of the tree to measure the height.
+ * @tree: A pointer to the root node of the tree to be measured.
  *
- * Return: If tree is NULL, your function must return 0, else return height.
+ * Return: 0 If tree is NULL, else return height.
  */
 size_t height(const binary_tree_t *tree)
 {
 	if (tree != NULL)
 	{
-		size_t l = 0, r = 0;
+		size_t left = 0, right = 0;
 
-		l = tree->left ? 1 + binary_tree_height(tree->left) : 1;
-		r = tree->right ? 1 + binary_tree_height(tree->right) : 1;
-		return ((l > r) ? l : r);
+		left = tree->left ? 1 + binary_tree_height(tree->left) : 1;
+		right = tree->right ? 1 + binary_tree_height(tree->right) : 1;
+		return ((left > right) ? left : right);
 	}
 	return (0);
 }
@@ -38,11 +38,10 @@ int balance(const binary_tree_t *tree)
 
 /**
  * avl_insert_recursive - Inserts a value into an AVL tree recursively.
- * @tree: A double pointer to the root node of the AVL tree to insert into.
+ * @tree: A double pointer to the root node of the AVL tree.
  * @parent: The parent node of the current working node.
  * @new: A double pointer to store the new node.
- * @value: The value to insert into the AVL tree.
- *
+ * @value: The value to be inserted
  * Return: A pointer to the new root after insertion, or NULL on failure.
  */
 avl_t *avl_insert_recursive(avl_t **tree, avl_t *parent,
@@ -96,7 +95,7 @@ avl_t *avl_insert_recursive(avl_t **tree, avl_t *parent,
  */
 avl_t *avl_insert(avl_t **tree, int value)
 {
-	avl_t *new = NULL;
+	avl_t *new_node = NULL;
 
 	if (tree == NULL)
 		return (NULL);
@@ -105,6 +104,6 @@ avl_t *avl_insert(avl_t **tree, int value)
 		*tree = binary_tree_node(NULL, value);
 		return (*tree);
 	}
-	avl_insert_recursive(tree, *tree, &new, value);
-	return (new);
+	avl_insert_recursive(tree, *tree, &new_node, value);
+	return (new_node);
 }
